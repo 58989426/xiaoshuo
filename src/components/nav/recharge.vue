@@ -1,0 +1,304 @@
+<template>
+	<div id="recharge">
+        <v-header><slot>充值</slot></v-header>
+        <div class="container">
+        	<div class="top">
+        		<div class="name">APPMkhYSKL</div>
+        		<div class="balance">
+        			余额:<span>4890</span>书币
+				</div>
+        	</div>
+        	<div class="tabbar">
+        		<div :class="tabnum==index?'tab_cur':''" v-for="(item,index) in tablist" @click="ctab(index)">
+        			<i :class="item.icon"></i>
+        			<span>{{item.ti}}</span>
+        		</div>
+        	</div>
+        	<!--书币-->
+        	<div class="coinbox">
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        			<span class="hot">热</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        	</div>
+        	<!--会员-->
+        	<div class="vipbox">
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        		<div>
+        			<span>￥30</span>
+        			<span>3000书币</span>
+        			<span>￥50</span>
+        		</div>
+        	</div>
+        	
+        	<!--充值方式-->
+        	<div class="payway">
+        		<div>
+        			<img src="@/assets/images/ali.png"/>
+        			<span>支付宝</span>
+        		</div>
+        		<div>
+        			<img src="@/assets/images/wx.png"/>
+        			<span>微信</span>
+        		</div>
+        	</div>
+        	
+        	<div class="topay">
+        		<div>确认支付</div>
+        	</div>
+        	
+		</div>	
+		<!--提示-->
+		<div class="remind">
+			<div>
+				<h4>温馨提示</h4>
+	            <p>1、书币充值比例 1元=100书币</p>
+	            <p>2、充值后书币到账可能有延时，如遇超过10分钟未到账，或遇到其他充值问题，请与客服联系。</p>
+	            <p>3、	书币属于虚拟产品，购买即默认用户同意<a>《用户协议》</a>。</p>	
+			</div>
+
+     	</div>
+	</div>
+</template>
+
+<script>
+	import vHeader from "@/components/common/v_header"	
+	export default{
+		name:"rank",
+		data(){
+			return{
+				tabnum:0,
+				tablist:[
+					{
+						ti:"充值书币",
+						icon:"iconfont icon-qian"	
+					},
+					{
+						ti:"加入会员",
+						icon:"iconfont icon-huiyuan"	
+					},]
+			}
+		},
+		components:{
+		 vHeader
+		},
+		methods:{
+			ctab(index){
+				this.tabnum = index
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	@import "@/assets/scss/theme.scss";
+	@function rf($px){
+            @return $px / 50px * 1rem;
+        }
+    #recharge{
+        .container{
+        	.top{
+        		height: 2rem;
+        		padding: 0 0.9rem;
+        		display: flex;
+        		font-size: 0.6rem;
+        		align-items: center;
+        		justify-content: flex-start;
+        		
+        		.name{
+        			padding: 0 0.5rem;
+        			height: 0.88rem;
+        			line-height: 0.88rem;
+        			border-left: 0.1rem solid $color;
+        			color: $color;
+        			font-weight: 600;
+        		}
+        		.balance{
+        			span{
+        				color: $color;
+        				font-weight: 600;
+        				padding: 0 0.2rem;
+        			}
+        		}
+        	}
+        	.tabbar{
+        		padding: 0 2rem;
+        		height: 1.6rem;
+        		display: flex;
+        		justify-content: space-around;
+        		align-items: center;
+        		font-size: 0.66rem;
+        		.tab_cur{
+        			color: $color;
+        		}
+        		div{
+        			display: flex;
+        			align-items: center;
+        			i{
+        				font-size: 0.6rem;
+        				display: block;
+        				height: 1.6rem;
+        				line-height: 1.6rem;
+        			}
+        			span{
+        				display: block;
+        				height: 1.6rem;
+        				line-height: 1.6rem;
+        				padding-left: 0.25rem;
+        			}
+        		}
+        	}
+        	.coinbox{
+        		padding: 0 0.5rem;
+        		display: flex;
+        		flex-wrap: wrap;
+        		justify-content: space-around;
+        		font-size: 0.6rem;
+        		div{
+        			border: 1px solid #F2F2F2;
+        			border-radius: rf(12px);
+        			padding: 0.18rem 0;
+        			margin-top: 0.6rem;
+        			height: 3rem;
+        			width: 44%;
+        			display: flex;
+        			flex-direction: column;
+        			justify-content: space-between;
+        			text-align: center;
+        			position: relative;
+        			.hot{
+        				font-size: 0.5rem;
+        				position: absolute;
+        				display: flex;
+        				align-items: center;
+        				justify-content: center;
+        				height: 0.8rem;
+        				width: 0.8rem;
+        				background: $color;
+        				color: white;
+        				border-radius: 50%;
+        				right: -0.28rem;
+        				top: -0.28rem;
+        			}
+        		}
+        	}
+        	.vipbox{
+        		padding: 0 0.5rem;
+        		display: flex;
+        		flex-wrap: wrap;
+        		justify-content: flex-start;
+        		font-size: 0.6rem;
+        		div{
+        			border: 1px solid #F2F2F2;
+        			border-radius: rf(12px);
+        			padding: 0.18rem 0;
+        			margin-top: 0.6rem;
+        			height: 3rem;
+        			width: 44%;
+        			margin: 3%;
+        			display: flex;
+        			flex-direction: column;
+        			justify-content: space-between;
+        			text-align: center;
+        		}
+        	}
+        	.payway{
+        		padding: 0 0.5rem;
+        		display: flex;
+        		justify-content: space-around;
+        		padding: 0.5rem 0;
+        		height:5.6rem;
+        		div{
+        			display: flex;
+        			flex-direction: column;
+        			width: 5rem;
+        			justify-content: space-around;
+        			align-items: center;
+        			font-size: 0.7rem;
+        			img{
+        				height: 3rem;
+        				width: 3rem;
+        			}
+        		}
+        	}
+        	.topay{
+        		margin: 0.5rem 0;
+        		height: 1.8rem;
+        		font-size: 0.88rem;
+        		color: white;
+        		display: flex;
+        		justify-content: center;
+        		align-items: center;
+        		div{
+        			width: 12rem;
+        			height: 1.8rem;
+        			text-align: center;
+        			line-height: 1.8rem;
+        			border-radius: .9rem;
+        			color: white;
+        			background: $color;
+        		}
+        	}
+        }
+        
+        .remind{
+        	padding: 0.5rem;
+        	div{
+        		height: 8rem;
+        		border: 1px solid #F2F2F2;
+        		padding: 0.4rem;
+        		h4{
+	        		font-weight: 500;
+	        		font-size: 0.7rem;
+	        		padding-bottom: 0.2rem;
+        		}
+        		p{
+        			display: block;
+        			font-size: 0.6rem;
+        			padding: 0.1rem 0 0.1rem 0.6rem;
+        			a{
+        				color: $color;
+        				display: inline-block;
+        			}
+        		}
+        	}
+        	
+        }
+    }    
+</style>
