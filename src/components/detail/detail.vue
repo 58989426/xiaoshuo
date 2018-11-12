@@ -1,67 +1,41 @@
 <template>
 	<div id="detail">
-        <v-header><slot>待你深情相许</slot></v-header>
+        <v-header><slot>{{book_info.short_name}}</slot></v-header>
         <Nav v-if="navflag"></Nav>
 		<!--书图片-->
         <div class="detail-info" >
-           <img src="@/assets/images/test.jpg" >
+           <img :src="book_info.cover" >
            <div class="cell">
-               <h6>带你深情相许</h6>
-               <p>灵气值</p>
-               <p>现代言情/豪门世家</p>
-               <p>24.24万字<span>|</span>连载 </p>
+               <h6>{{book_info.short_name}}</h6>
+               <p>{{book_info.username}}</p>
+               <p>{{book_info.cate_name}}</p>
+               <p>{{parseInt(book_info.word_count)}}万字<span>|</span>{{book_info.status}} </p>
            </div>
         </div>
-        <img id="bgpic" src="@/assets/images/test.jpg"/>
+        <img id="bgpic" :src="book_info.cover"/>
 		<!--tab-->
 		<div class="tab" >
 			<router-link to="/book/read" >
 				<div class="cur">立即阅读</div>
 			</router-link>
-			<div >VIP订阅</div>
-			<div >加入书架</div>
-			<div >捧场</div>
+			<div>VIP订阅</div>
+			<div>{{book_info.bookshelf?'取消书架':'加入书架'}}</div>
+			<div>捧场</div>
 		</div>
 		<!--简介-->
-		<div class="intro"  >
-			十四年情深似海，痴心交付，换来的是他江山稳固，她家破人亡。
-			当她踏着鲜血步步重生，回归血债的开端……
-			“狠毒？你可知亲眼看着双亲被野狗分食，是何等痛不欲生？”
-			在这个世家与皇族共天下的浮华乱世，她是华陵凤家最尊贵的嫡女。
-			一手折扇，半面浅笑，藏住满腹阴谋。
-			一袭红裳，七弦着墨，结交天下名流。
-			当她智斗族男，颠覆祖制，成为有史以来唯一一位女少主；
-			当她跻身清流，被名士推崇，成为一代领袖；
-			当她——将傲娇的狼骑战神养成人人垂涎的绝色男宠。
-			凤举：“灼郎，我心悦你，你呢？”
-			慕容灼：“她足下的尺寸之地，便是本王要守护的江山！”
-			巍巍帝阙，谁将兴举盛世风骨？
-			（读者群：232886807）
-			<i class="iconfont icon-down"></i>
+		<div class="intro" v-if="intro_flag">
+			{{book_info.intro}}
+			<i class="iconfont icon-down" @click="down()" ></i>
 		</div>
-		<div class="into" style="display: none;" >
-			十四年情深似海，痴心交付，换来的是他江山稳固，她家破人亡。
-			当她踏着鲜血步步重生，回归血债的开端……
-			“狠毒？你可知亲眼看着双亲被野狗分食，是何等痛不欲生？”
-			在这个世家与皇族共天下的浮华乱世，她是华陵凤家最尊贵的嫡女。
-			一手折扇，半面浅笑，藏住满腹阴谋。
-			一袭红裳，七弦着墨，结交天下名流。
-			当她智斗族男，颠覆祖制，成为有史以来唯一一位女少主；
-			当她跻身清流，被名士推崇，成为一代领袖；
-			当她——将傲娇的狼骑战神养成人人垂涎的绝色男宠。
-			凤举：“灼郎，我心悦你，你呢？”
-			慕容灼：“她足下的尺寸之地，便是本王要守护的江山！”
-			巍巍帝阙，谁将兴举盛世风骨？
-			（读者群：232886807）
-			
+		<div class="into" v-if="!intro_flag"  @click="up()">
+			{{book_info.intro}}
 		</div>
 		<!--目录-->
 		 <router-link to="/book/catelog">
 	        <div class="catelog">
 	            <strong class="left">目录</strong>
 	            <div class="right">
-		            <p class="serial">连载中<span class="char-dot">·</span>第580章 一种执念</p>
-		            <p class="end" v-if="false">已完结</p>
+		            <p class="serial">{{book_info.status}}<span class="char-dot">·</span>{{book_info.chapter_name}}</p>
 	        	</div>
 	        </div>
         </router-link>
@@ -73,32 +47,14 @@
 				<div class="title">猜你喜欢</div>
 			</div>
 			<div class="content">
-			    <router-link  to="/detail">
+			    <router-link  to="/detail" v-for="(item,index) in like" :key="index">
 			    	<div class='list' >
 				      <div class='box1' >
-				        <img src="@/assets/images/test.jpg" class='simg'></img>
-			            <span class='name'>报告首长，我重生了</span>
+				        <img :src="item.cover" class='simg'></img>
+			            <span class='name'>{{item.short_name}}</span>
 				      </div>
 			    	</div>
 			    </router-link>
-			    <div class='list' >
-			      <div class='box1' >
-			        <img src="@/assets/images/test.jpg" class='simg'></img>
-			            <span class='name'>报告首长，我重生了</span>
-			      </div>
-			    </div>
-			    <div class='list' >
-			      <div class='box1' >
-			        <img src="@/assets/images/test.jpg" class='simg'></img>
-			            <span class='name'>报告首长，我重生了</span>
-			      </div>
-			    </div>
-			    <div class='list' >
-			      <div class='box1' >
-			        <img src="@/assets/images/test.jpg" class='simg'></img>
-			            <span class='name'>报告首长，我重生了</span>
-			      </div>
-			    </div>		    
 			</div>
 		</div>
 		<Tiao />
@@ -106,13 +62,27 @@
 		<div class="comment">
 			<div class="top">
 				<div class="title">书评区</div>
-				<div class="right">
+				<div class="right" @click="godiscuss()">
 					<span class="write">评论</span>
 					<i class="iconfont icon-comment"></i>
 				</div>
 			</div>
-			<ul class="content">
-				<li class="list">
+			<div class="comment_null" v-if="comment_flag" 
+				>
+					<h3>暂无评论!!</h3>
+			</div>
+			<ul class="content" v-if="!comment_flag">
+				<li class="list" >
+				    <div class="pic">
+				        <img class="img" src="//shp.qpic.cn/readnovel/0/1/100" alt="小阅书友15175016932195538头像">
+				    </div>
+				    <div class="box">
+				        <div class="name">小阅书友15175016932195538</div>
+				        <time class="time">10-18 22:05</time>
+				        <p class="pl">她跻身清流，被名士推崇，成为一代领袖；</p>
+				    </div>
+				</li>
+				<!--<li class="list">
 				    <div class="pic">
 				        <img class="img" src="//shp.qpic.cn/readnovel/0/1/100" alt="小阅书友15175016932195538头像">
 				    </div>
@@ -131,21 +101,11 @@
 				        <time class="time">10-18 22:05</time>
 				        <p class="pl">她跻身清流，被名士推崇，成为一代领袖；</p>
 				    </div>
-				</li>
-				<li class="list">
-				    <div class="pic">
-				        <img class="img" src="//shp.qpic.cn/readnovel/0/1/100" alt="小阅书友15175016932195538头像">
-				    </div>
-				    <div class="box">
-				        <div class="name">小阅书友15175016932195538</div>
-				        <time class="time">10-18 22:05</time>
-				        <p class="pl">她跻身清流，被名士推崇，成为一代领袖；</p>
-				    </div>
-				</li>
+				</li>-->
 			</ul>
 		</div>
 		<Tiao/>
-		
+        <Gotop />
 		<Bottom/>
 	</div>
 
@@ -160,23 +120,74 @@
 		components:{
 		    Bottom,Nav,vHeader
 		  },
+		inject:['reload'],
 		data(){
 			return{
 				navflag:false,
-				curIndex:0
+				intro_flag:true,
+				comment_flag:null,
+				curIndex:0,
+				book_id:null,
+				user_id:null,
+				book_info:"",
+				like:[],
+				commentlist:[]
 			}
 		},
+		created(){
+			this.navflag = false
+			this.book_id = this.$route.query.book_id
+			console.log(this.book_id)
+			this.getData()
+		},
+		beforeMount(){
+		
+		},
+		mounted(){
+		
+		},
 		methods:{
-				change(){
-					if(this.navflag){
-						this.navflag = false
-					}else{
-						this.navflag = true
+			getData(){
+				this.$http({
+		            method:'get',
+		            url:'/ky/App/Home/Index/details?id='+this.book_id+"&uid="+this.user_id,
+		            data:{
+		            }
+		        }).then(res=>{
+		            console.log(res.data)
+		            this.book_info = res.data.data.books
+		            this.like = res.data.data.groom
+		            if(res.data.data.comment.lists.length == 0){
+		            	this.comment_flag = true
+		            }else{
+		            	this.commentlist = res.data.data.comment
+		            	this.comment_flag = false
+		            }
+		        }).catch(err=>{
+		          console.log(err)
+		        })
+			},
+			change(){
+				this.navflag = !this.navflag
+			},
+			godiscuss(){
+				this.$router.push({
+					name:"discuss",
+					params :{
+						bookid : 611
 					}
-					
-				},
-				
+				})
+			},
+			down(){
+				this.intro_flag = false
+			},
+			up(){
+				this.intro_flag = true
 			}
+		
+				
+		},
+
 	}
 </script>
 
@@ -191,12 +202,12 @@
         }
     #bgpic{
     	position: absolute;
-	    top: 2rem;
+	    top: 0rem;
 	    width: 100%;
 	    height: 13rem;
 	    opacity: calc(.1 + .05);
 	    z-index: 1;
-	    filter: blur(calc(17px + 1px));
+	    filter: blur(calc(-15px + 31px));
     }    
     div{
         .detail-info{
@@ -288,7 +299,7 @@
 		    -webkit-box-orient: vertical;
 		    -webkit-line-clamp:4;
 		    text-overflow: ellipsis;
-		    text-indent: 1rem;
+		    text-indent: 2em;
 		    z-index: 999;
 		    i{
         		position: absolute;
@@ -305,12 +316,13 @@
         	}
         }
         .into{
+        	position: relative;
         	padding:0.5rem 0.5rem 0 0.5rem;
-        	height: auto;
-        	overflow: hidden;
+        	text-indent: 2em;
         	font-size: 0.5rem;
         	line-height: 1rem;
         	z-index: 999;
+        	min-height: 4.5rem;
         }
         /*目录*/
        	.catelog{
@@ -401,7 +413,7 @@
     }
     /*评论区*/
    .comment{
-    	height: 11rem;
+    	/*height: 11rem;*/
     	width: 100%;
     	.top{
     		padding: 0 0.5rem;
@@ -433,6 +445,17 @@
 					
 				}
 			}
+    	}
+    	.comment_null{
+    		h3{
+    			display: flex;
+    			height: 4rem;
+    			align-items: center;
+    			justify-content: center;
+    			font-size: 0.64rem;
+    			color: gray;
+    			font-style:italic;
+    		}
     	}
     	.content{
     		height: 9rem;
@@ -472,6 +495,7 @@
 					    -webkit-line-clamp:2;
 					    text-overflow: ellipsis;
 					    /*text-indent: 1.04rem;*/
+					   
     				}
     			}
     		}

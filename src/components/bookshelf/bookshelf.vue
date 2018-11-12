@@ -92,6 +92,9 @@
 		components:{
 		 	vHeader
 		},
+		created(){
+			console.log(this.$route.query.user_id)
+		},
 		methods:{
 			change(index){
 				console.log(index)

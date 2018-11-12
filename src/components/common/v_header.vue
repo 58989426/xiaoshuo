@@ -9,7 +9,7 @@
 	            <i class="iconfont icon-mulu"></i>
 	        </div>
         </div>
-        <transition name="custom-classes-transition" enter-active-class="animated slideInUp" leave-active-class="animated slideOutDown">
+        <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOutDown ">
         	<Mnav v-if="flag" />
         </transition>
     </div>
@@ -29,11 +29,7 @@
 		},
 		methods:{
 			mnav(){
-				if(this.flag){
-					this.flag = false
-				}else{
-					this.flag = true
-				}
+				this.flag = !this.flag
 			}
 				
 		}
@@ -46,6 +42,7 @@
         box-sizing:border-box;
         font-size:0.7rem;
         height:2rem;
+        
         #box{
         	display: flex;
 	        align-items:center;
@@ -54,6 +51,7 @@
         .left{
             display: flex;
             justify-content:space-between;
+            z-index: 999;
             i{
             	color:$color;
             	display: block;

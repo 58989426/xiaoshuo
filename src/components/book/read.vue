@@ -150,6 +150,7 @@
 </script>
 
 <style lang="scss">
+	@import "@/assets/scss/theme.scss";
 	@function rf($px){
             @return $px / 50px * 1rem;
         }
@@ -308,12 +309,12 @@
 	            align-items: center;
 	            justify-content: space-around;
 	            .bgcur{
-		           border: 1px solid #FF3955;
+		           border: 1px solid $color;
 		        }
 		        div{
 		          i{
 		          	display: block;
-		          	color: #FF3955;
+		          	color: $color;
 		          	font-size: 0.6rem;
 		          	height: 1.6rem;
 		          	width: 2rem;

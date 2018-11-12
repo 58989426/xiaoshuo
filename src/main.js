@@ -10,7 +10,11 @@ import Mint from 'mint-ui';
 import "@/common/directive"
 import Gotop from "@/components/common/gotop"
 import Tiao from "@/components/common/tiao"
-Vue.use(Mint);
+import VueBus from 'vue-bus'
+import animate from 'animate.css'
+
+Vue.use(VueBus)
+Vue.use(Mint)
 Vue.config.productionTip = false
 Vue.component('Gotop',Gotop)
 Vue.component('Tiao',Tiao)

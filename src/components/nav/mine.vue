@@ -79,7 +79,7 @@
 			</ul>
 			<!--登录/退出-->
 			<div class="quit">
-				<router-link to="/login/login">
+				<router-link to="/login">
 					<div>退出登录</div>
 				</router-link>
 			</div>

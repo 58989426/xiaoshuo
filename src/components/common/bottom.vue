@@ -1,10 +1,10 @@
 <template>
 	<div class="bottom">
 		<div class="top">
-			<router-link to="/">书架</router-link>
-			<router-link to="/">充值</router-link>
-			<router-link to="/">帮助</router-link>
-			<router-link to="/">客户端</router-link>
+			<div class="b_box" @click="gopage('bookshelf')">书架</div>
+			<div class="b_box" @click="gopage('recharge')">充值</div>
+			<div class="b_box" @click="gopage()">帮助</div>
+			<div class="b_box" @click="gopage()">客户端</div>
 		</div>
 		<div class="copy">
              copyright © 2002-2018 m.readnovel.com
@@ -15,6 +15,25 @@
 <script>
 	export default{
 		
+		data(){
+			return{
+				user_id : ""
+			}
+		},
+		created(){
+			let user_id = localStorage.getItem("user_id")
+			this.user_id = user_id
+			console.log(this.user_id)
+		},
+		methods:{
+			gopage(path){
+			if (!true) {
+				
+				} else{
+					this.$router.push({path,query:{user_id:this.user_id}})
+				}
+			}
+		}
 	}
 </script>
 
@@ -32,7 +51,7 @@
     		align-items: center;
     		justify-content: space-around;
     		font-size: rf(30px);
-    		a{
+    		.b_box{
     			display: block;
     			text-decoration: none;
     			color: black;

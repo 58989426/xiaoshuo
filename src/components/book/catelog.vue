@@ -1,4 +1,4 @@
-<template>
+#<template>
 	<div id="catelog">
 		<div class="catelog_header">
             <div class="left">
@@ -90,6 +90,7 @@
 </script>
 
 <style lang="scss">
+	@import "@/assets/scss/theme.scss";
 	@function rf($px){
             @return $px / 50px * 1rem;
         }
@@ -108,7 +109,7 @@
                 justify-content:space-between;
                 a{
                     text-decoration:none;
-                    color:#ff3955;
+                    color:$color;
                     display: flex;
                     align-items: center;
                     width:0.8rem;
@@ -131,7 +132,7 @@
                 width:1.2rem;
                 display: flex;
                 justify-content:space-between;
-                color:#ff3955;
+                color:$color;
                 align-items: center;
                 i{
                 	height: 1rem;
@@ -146,8 +147,8 @@
         	line-height: 2rem;
         	text-align: center;
         	font-size: 0.6rem;
-        	color: #FF3955;
-        	border-bottom: 1px solid #FF3955;
+        	color: $color;
+        	border-bottom: 1px solid $color;
         }
         .catelog_count{
         	height: 1.8rem;
@@ -192,7 +193,7 @@
 					margin-right: 0.66rem;
 					display: block;
 					height: 1.6rem;
-					color: #FF3955;
+					color: $color;
 					line-height: 1.6rem;
 					font-size: 0.64rem;
 				}
@@ -212,7 +213,7 @@
         		line-height: 1.4rem;
         		text-align: center;
         		border: 1px solid gainsboro;
-        		color: #FF3955;
+        		color: $color;
         	}
         	.pagenums{
         		.num{
@@ -227,7 +228,7 @@
         		line-height: 1.4rem;
         		text-align: center;
         		border: 1px solid gainsboro;
-        		color: #FF3955;
+        		color: $color;
         	}
         }
     }    

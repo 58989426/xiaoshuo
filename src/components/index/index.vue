@@ -14,13 +14,21 @@
     <!--轮播图-->
     	<div class="swiper-container">
 		    <div class="swiper-wrapper">
-		        <div class="swiper-slide"><router-link to="/"><img src="@/assets/images/spic1.gif"/></router-link></div>
-		        <div class="swiper-slide"><router-link to="/"><img src="@/assets/images/spic1.gif"/></router-link></div>
-		        <div class="swiper-slide"><router-link to="/"><img src="@/assets/images/spic1.gif"/></router-link></div>
+		        <div class="swiper-slide" v-for="(item,index) in bannerlist" :key="index">
+		        	<router-link :to="{name:'detail',query:{book_id:item.book_id}}">
+		        		<img :src="item.path"/>
+		        	</router-link>
+		        </div>
 		    </div>
+		    <div class="swiper-pagination"></div>
 			</div> 
 			<!--搜索-->
-			<router-link to="/search"><div class="sea">倾城娇女</div></router-link>
+			<router-link to="/search"> <div class="search">
+				<div class="search_box">
+					<i class="iconfont icon-sousuo"></i><span>倾城娇女</span>
+				</div>
+			</div></router-link>
+			
 			<!--导航-->
 			<div class="nav">
 				<router-link to="/classify">
@@ -54,14 +62,10 @@
 					</div>
 				</router-link>
 			</div>
-	    
-	    <Tiao />
-	    <!--样式一-->
-	    <div class="one">
+			<div class="type_box" v-for="item in lists">
+			<Tiao />
 				<div class="top">
-					<div class="title">
-						样式一
-					</div>
+					<div class="title">{{item.class_name}}</div>
 					<router-link to="/">
 						<div class="more">
 							<span>更多</span>
@@ -69,140 +73,72 @@
 						</div>
 					</router-link>
 				</div>
+				
+				<div class="one" v-if="item.type==1">
 				<div class="content">
-					<router-link to="/detail">
-						<div class="box" >
-			        <img class='pimg' src='@/assets/images/test.jpg' />
+					<router-link :to="{name:'detail',query:{book_id:i.book_id}}" v-for="(i,index) in item.books"  :key="index">
+						<div class="box">
+			        <img class='pimg' :src='i.cover' />
 			        <div class='right'>
-			          <div class='name'>  山里人家</div>
-			          <div class='intro'>
-			            　　顾水秀穿越到一个贫穷的山旮沓里，阴差阳错嫁给了猎户董成虎，夫妻相濡以沫，把日子过成诗，从家徒四壁，到有房有田有山。从毫无权势的底层百姓到隐世世族。两人一步一个脚印，创造属于自己的奇迹。
-			          </div>
+			          <div class='name'>{{i.short_name}}</div>
+			          <div class='intro'>{{i.intro}}</div>
 			          <div class='author'>
 				          <div class="left">
-				          	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
+				          	<i class="iconfont icon-ren"></i><span class="at">{{i.author_name}}</span>
 				          </div>
 			              <div class="right2">
-			              	<div>玄幻言情</div>
-			              	<div>连载中</div>
+			              	<div>{{i.cate_name}}</div>
+			              	<div>{{i.status==1?"已完结":"连载中"}}</div>
 			              </div>
 			          </div>
 			        </div>
 					  </div>
-				  </router-link>   
-				    <div class="box" >
-				        <img class='pimg' src='@/assets/images/test.jpg' />
-				        <div class='right'>
-				          <div class='name'>  山里人家</div>
-				          <div class='intro'>
-				            　　顾水秀穿越到一个贫穷的山旮沓里，阴差阳错嫁给了猎户董成虎，夫妻相濡以沫，把日子过成诗，从家徒四壁，到有房有田有山。从毫无权势的底层百姓到隐世世族。两人一步一个脚印，创造属于自己的奇迹。
-				          </div>
-				          <div class='author'>
-					          <div class="left">
-					          	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
-					          </div>
-				              <div class="right2">
-				              	<div>玄幻言情</div>
-				              	<div>连载中</div>
-				              </div>
-				          </div>
-				        </div>
-				      </div>
-				    <div class="box" >
-				        <img class='pimg' src='@/assets/images/test.jpg' />
-				        <div class='right'>
-				          <div class='name'>  山里人家</div>
-				          <div class='intro'>
-				            　　顾水秀穿越到一个贫穷的山旮沓里，阴差阳错嫁给了猎户董成虎，夫妻相濡以沫，把日子过成诗，从家徒四壁，到有房有田有山。从毫无权势的底层百姓到隐世世族。两人一步一个脚印，创造属于自己的奇迹。
-				          </div>
-				          <div class='author'>
-					          <div class="left">
-					          	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
-					          </div>
-				              <div class="right2">
-				              	<div>玄幻言情</div>
-				              	<div>连载中</div>
-				              </div>
-				          </div>
-				        </div>
-				      </div>
+				  </router-link>
 				</div>
 			</div>
-	 
-	    <Tiao />
-	    
-	    <!--样式二-->
-			<div class="two">
-				<div class="top">
-					<div class="title">样式二</div>
-				</div>
+			
+			
+			<div class="two" v-if="item.type==3">
 				<div class="content">
-				    <router-link  to="/detail">
+				    <router-link  :to="{name:'detail',query:{book_id:item.book_id}}" v-for="(i,index) in item.books" :key="index">
 				    	<div class='list' >
 					      <div class='box1' >
-					        <img src="@/assets/images/test.jpg" class='simg'></img>
-				            <span class='name'>报告首长，我重生了</span>
+					        <img :src="i.cover" class='simg'></img>
+				            <span class='name'>{{i.short_name}}</span>
 					      </div>
 				    	</div>
-				    </router-link>
-				    <div class='list' >
-				      <div class='box1' >
-				        <img src="@/assets/images/test.jpg" class='simg'></img>
-				            <span class='name'>报告首长，我重生了</span>
-				      </div>
-				    </div>
-				    <div class='list' >
-				      <div class='box1' >
-				        <img src="@/assets/images/test.jpg" class='simg'></img>
-				            <span class='name'>报告首长，我重生了</span>
-				      </div>
-				    </div>
-				    <div class='list' >
-				      <div class='box1' >
-				        <img src="@/assets/images/test.jpg" class='simg'></img>
-				            <span class='name'>报告首长，我重生了</span>
-				      </div>
-				    </div>		    
+				    </router-link>	    
 				</div>
 			</div>
-	    <Tiao />
-	   	 <!--样式三-->
-	   	 <div class="three">
-				<div class="top">
-					<div class="title">样式三</div>
-				</div>
-				<ul class="content">
-					<router-link  to="/detail">
-						<li class="list">
-							<span class="cate">[励志风云]</span>
-							<span class="name">超级战兵</span>
+	  
+	  
+	   	<div class="three" v-if="item.type==2">
+				
+				<router-link :to="{name:'detail',query:{book_id:i.book_id}}" v-for="(i,index) in item.books" v-if="index == 0"  :key="index">
+					<div class="box">
+		        <img class='pimg' :src='i.cover' />
+		        <div class='right'>
+		          <div class='name'>{{i.short_name}}</div>
+		          <div class='intro'>{{i.intro}}</div>
+		          <div class='author'>
+			          <div class="left">
+			          	<i class="iconfont icon-ren"></i><span class="at">{{i.author_name}}</span>
+			          </div>
+		          </div>
+		        </div>
+				  </div>
+			  </router-link>
+				  
+				<ul class="content">  
+					<router-link  :to="{name:'detail',query:{book_id:i.book_id}}" v-for="(i,index) in item.books" v-if="index !== 0" :key='index'>
+						<li class="list" >
+							<span class="cate">[{{i.cate_name}}]</span>
+							<span class="name">{{i.short_name}}</span>
 						</li>
 					</router-link>
-					<li class="list">
-						<span class="cate">[励志风云]</span>
-						<span class="name">超级战兵</span>
-					</li>
-					<li class="list">
-						<span class="cate">[励志风云]</span>
-						<span class="name">超级战兵</span>
-					</li>
-					<li class="list">
-						<span class="cate">[励志风云]</span>
-						<span class="name">超级战兵</span>
-					</li>
-					<li class="list">
-						<span class="cate">[励志风云]</span>
-						<span class="name">超级战兵</span>
-					</li>
-					<li class="list">
-						<span class="cate">[励志风云]</span>
-						<span class="name">超级战兵</span>
-					</li>
-					<li class="list">
-						<span class="cate">[励志风云]</span>
-						<span class="name">超级战兵</span>
-					</li>
 				</ul>
+			</div>
+				
 			</div>
 	    <Tiao />
 	    <Bottom />
@@ -212,47 +148,62 @@
 
 <script>
 	import Swiper from 'swiper';
+	import axios from 'axios'
 	import Bottom from "@/components/common/bottom"
 export default {
   name: 'index',
   components:{
-    Bottom
+  	Bottom
   },
   data(){
     return {
-        list : []
-    }
+    		bannerlist:[],
+        user_id:123456,
+        lists:[]
+        
+    };
   },
   created(){
-  	    this.$http({
+			this.getData()
+			localStorage.setItem("user_id",123456)
+			
+  },
+  mounted(){
+  	this.$nextTick(function(){
+     var mySwiper = new Swiper ('.swiper-container', {
+		     autoplay: true,
+		     pagination: {
+		      el: '.swiper-pagination',
+		    },
+		     observer:true,
+		     autoplayDisableOnInteraction: false,
+			})    
+		})
+  },
+  methods:{
+		getData(){
+	    this.$http({
           method:'get',
           url:'/ky/App/Home/Index/index',
           data:{}
-        }).then(function(res){
-          console.log(res)
-        }).catch(function(err){
+     }).then(res=>{
+          this.bannerlist = res.data.data.banner
+          this.lists = res.data.data.blocks
+          console.log(this.lists)
+        }).catch(err=>{
           console.log(err)
         })
-  },
-  mounted(){
-     new Swiper ('.swiper-container', {
-     autoplay: true,
-     loop: true,
-     // 如果需要分页器
-     pagination: '.swiper-pagination',
-    
-     // 如果需要滚动条
-     scrollbar: '.swiper-scrollbar',
-  })        
+		},
+		
   }
+
+
 }
 </script>
 
 <style lang="scss">
 	@import "@/assets/scss/theme.scss";
-	/*#app{
-		overflow-y: scroll;
-	}*/
+	
 	 @function rf($px){//$px为需要转换的字号
             @return $px / 50px * 1rem; //25px为根字体大小
         }
@@ -332,20 +283,31 @@ export default {
         }
     }       
     /*搜索*/  
-        .sea{
-        	height:rf(66px);
-        	width:rf(700px);
-        	margin: rf(10px) rf(25px) 0 rf(25px);
-        	background: #f7f7f7;
-        	line-height: rf(66px);
-        	font-size: rf(20px);
-        	text-align: center;
-        	background: url(../../assets/images/sea.gif) #f7f7f7 no-repeat  ;
-        	background-position: rf(260px) center;
-        	background-size: rf(36px);
-        	padding: 0 rf(25px);
-        	border-radius: rf(33px);
-        	color: #CCCCCC;
+        .search{
+        	margin-top: 0.5rem;
+					display: flex;
+					height: 1.6rem;      	
+        	padding: 0 0.5rem;
+        	.search_box{
+        		width: 100%;
+        		border-radius: 0.2rem;
+        		background: #f7f7f7;
+        		padding: 0 5.2rem;
+        		display: flex;
+        		justify-content: space-around;
+        		align-items: center;
+        		color:grey;
+        		i{
+        			height: 1.6rem;
+        			line-height: 1.6rem;
+        			font-size: 0.68rem;
+        		}
+        		span{
+        			height: 1.6rem;
+        			line-height: 1.6rem;
+        			font-size: 0.54rem;
+        		}
+        	}
         }
         
     /*导航*/ 
@@ -356,68 +318,64 @@ export default {
 			    justify-content: space-between;
 			    -webkit-box-pack: justify;
 			    background-color: #fff;
-			    padding: 0 1rem;
+			    padding: 0 0.5rem;
 			    align-items: center;
-			    a{
-			    	display: block;
-			      width: 1.5rem;
-				    height: 2rem;
-				    text-align: center;
-				    font-size: .75rem;
-				    position: relative;
-				    line-height: 1.5;
-				    .fl{
-					    	i{
-					    		display: inline-block;
-							    width: 1.5rem;
-							    height: rf(60px);
-							    text-align: center;
-							    font-size: .75rem;
-							    position: relative;
-							    color: $color;
-					    	}
-					    	span{
-					    		position: absolute;
-							    left: 0;
-							    right: 0;
-							    bottom: .1875rem;
-							    font-weight: 400;
-							    font-size: rf(20px);
-							    color: black;
-					    	}
-				    }
-			    }
+			   a{
+			   	display: block;
+			   	.fl{
+			   		display: flex;
+			   		height: 2rem;
+			   		flex-direction: column;
+			   		justify-content: space-around;
+			   		align-items:space-around;
+			   		i{
+			   			width: 2rem;
+			   			display: flex;
+			   			font-size: 0.76rem;
+			   			color:$color;
+			   			justify-content: center;
+			   			align-items: center;
+			   		}
+			   		span{
+			   			width: 2rem;
+			   			text-align: center;
+			   			display: block;
+			   			font-size: 0.56rem;
+			   			color:black;
+			   		}
+			   	}
+			   }
         }   
+  .type_box{
+  	.top{
+   	padding: 0 0.5rem;
+			height: 1.5rem;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.title{
+				height: 0.6rem;
+				font-size: 0.6rem;
+				line-height: 0.6rem;
+				padding-left: 0.4rem;
+				text-align: center;
+				border-left: rf(6px) solid $color;;
+				font-weight: 700;
+			}
+			.more{
+				font-size: 0.5rem;
+				i{
+					font-size: 0.6rem;
+				}
+			}
+    }
     /*样式一*/
+   
     .one{
-    	height: rf(795px);
     	width: 100%;
     	overflow: hidden;
     	padding: 0 0.5rem;
-    	
-        .top{
-    		height: 1.5rem;
-    		width: 100%;
-    		display: flex;
-    		align-items: center;
-    		justify-content: space-between;
-    		
-    		.title{
-    			height: 0.6rem;
-    			font-size: 0.6rem;
-    			line-height: 0.6rem;
-    			width: 2.6rem;
-    			text-align: center;
-    			border-left: rf(6px) solid $color;;
-    			font-weight: 700;
-    		}
-    		.more{
-    			font-size: 0.5rem;
-    			i{
-    				font-size: 0.6rem;
-    			}
-    		}
-        	}
         .content{
         	.box{
 					  height: rf(240px);
@@ -440,14 +398,15 @@ export default {
 			  display: flex;
 			  flex-direction: column;
 			 .name{
-			  font-size: 0.6rem;
+			  font-size: 0.62rem;
 			  height: rf(70px);
 			  line-height: rf(75px);
 			  font-weight: 700;
+			  color: #333;
 			}
 			.author{
 			  font-size: 0.56rem;
-			  color: #999;
+			  color: gray;
 			  height: rf(70px);
 			  line-height: rf(40px);
 			  display: flex;
@@ -499,31 +458,7 @@ export default {
     }  
     /*样式二*/  
     .two{
-    	height: rf(360px);
     	width: 100%;
-    	.top{
-    		padding: 0 0.5rem;
-    		height: 1.5rem;
-    		width: 100%;
-    		display: flex;
-    		align-items: center;
-    		justify-content: space-between;
-    		.title{
-    			height: 0.6rem;
-    			font-size: 0.6rem;
-    			line-height: 0.6rem;
-    			width: 2.6rem;
-    			text-align: center;
-    			border-left: rf(6px) solid $color;
-    			font-weight: 700;
-    		}
-    		.more{
-    			font-size: 0.5rem;
-    			i{
-    				font-size: 0.6rem;
-    			}
-    		}
-    	}
     		.content{
 	    		padding:0 0.5rem;
 	    		width: 100%;
@@ -559,61 +494,94 @@ export default {
     }
     /*样式三*/
     .three{
-    	height: 9rem;
+			padding-bottom: 1.2rem;
     	width: 100%;
-    	.top{
+    	.box{
     		padding: 0 0.5rem;
-    		height: 1.5rem;
+			  height: rf(240px);
+			  border-bottom: rf(2px) solid #f2f2f2;
+			  display: flex;
+			  justify-content: space-around;
+			  position: relative;
+			  display: flex;
+				border-bottom: none;
+			}
+			  .box .pimg{
+				  margin-top: rf(15px);
+				  width: rf(160px);
+				  height: rf(210px); 
+				  overflow: hidden;
+				}
+						
+			.box .right{
+			  width: rf(510px);
+			  height: rf(240px);
+			  display: flex;
+			  flex-direction: column;
+			 .name{
+			  font-size: 0.62rem;
+			  height: rf(70px);
+			  line-height: rf(75px);
+			  font-weight: 700;
+			  color: #333;
+			}
+			.author{
+			  font-size: 0.56rem;
+			  color: gray;
+			  height: rf(70px);
+			  line-height: rf(40px);
+			  display: flex;
+			  justify-content: space-between;
+			  .left{
+			  	padding-top:0.1rem;
+			  	i{
+			  		font-size: 0.6rem;
+			  	}
+			  }
+			}
+			.intro{
+			  text-indent: 0;
+			  font-size: 0.56rem;
+			  height: rf(100px);
+			  overflow: hidden;
+			  white-space: wrap; 
+			  text-overflow: ellipsis;
+			  color: #999;
+			  line-height: rf(50px);
+			  padding: 0;
+			}
+		}
+    .content{
+    		padding:0 0.2rem;
+    		box-sizing: border-box;
     		width: 100%;
+    		height: 6rem;
     		display: flex;
-    		align-items: center;
-    		justify-content: space-between;
-    		.title{
-    			height: 0.6rem;
-    			font-size: 0.6rem;
-    			line-height: 0.6rem;
-    			width: 2.6rem;
-    			text-align: center;
-    			border-left: rf(6px) solid $color;
-    			font-weight: 700;
-    		}
-    		.more{
+    		height: 7rem;
+    		flex-direction: column;
+    		align-items: flex-start;
+    		overflow: hidden;
+    		.list{
+    			width: 100%;
+    			height: 1rem;
     			font-size: 0.5rem;
-    			i{
-    				font-size: 0.6rem;
+    			display:flex;
+    			span{
+    				display: block;
+    				height: 1rem;
+    				line-height: 1rem;
+    			}
+    			.cate{
+    				width: 3.5rem;
+    				text-align: center;
+    				color: #e88d54;
+    			}
+    			.name{
+    				width: 10rem;
     			}
     		}
-    	}
-    		.content{
-	    		padding:0 0.5rem;
-	    		box-sizing: border-box;
-	    		width: 100%;
-	    		height: 6rem;
-	    		display: flex;
-	    		height: 7rem;
-	    		flex-direction: column;
-	    		align-items: flex-start;
-	    		overflow: hidden;
-	    		.list{
-	    			width: 100%;
-	    			height: 1rem;
-	    			font-size: 0.5rem;
-	    			display:flex;
-	    			span{
-	    				display: block;
-	    				height: 1rem;
-	    				line-height: 1rem;
-	    			}
-	    			.cate{
-	    				width: 3.5rem;
-	    				text-align: center;
-	    				color: #e88d54;
-	    			}
-	    			.name{
-	    				width: 10rem;
-	    			}
-	    		}
-    	}
-    }      	
+    }
+    }
+   }       	
   }
 </style>

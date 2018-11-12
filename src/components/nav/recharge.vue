@@ -17,6 +17,12 @@
         	<!--书币-->
         	<div class="coinbox">
         		<div>
+        			<span >￥30</span>
+        			<span>3000书币</span>
+        			<span>赠送5000书币</span>
+        			<span class="hot">热</span>
+        		</div>
+        		<div>
         			<span>￥30</span>
         			<span>3000书币</span>
         			<span>￥50</span>
@@ -26,26 +32,25 @@
         			<span>￥30</span>
         			<span>3000书币</span>
         			<span>￥50</span>
+        			<span class="hot">热</span>
         		</div>
         		<div>
         			<span>￥30</span>
         			<span>3000书币</span>
         			<span>￥50</span>
+        			<span class="hot">热</span>
         		</div>
         		<div>
         			<span>￥30</span>
         			<span>3000书币</span>
         			<span>￥50</span>
+        			<span class="hot">热</span>
         		</div>
         		<div>
         			<span>￥30</span>
         			<span>3000书币</span>
         			<span>￥50</span>
-        		</div>
-        		<div>
-        			<span>￥30</span>
-        			<span>3000书币</span>
-        			<span>￥50</span>
+        			<span class="hot">热</span>
         		</div>
         	</div>
         	<!--会员-->
@@ -103,6 +108,7 @@
 		name:"rank",
 		data(){
 			return{
+				user_id:"",
 				tabnum:0,
 				tablist:[
 					{
@@ -117,6 +123,9 @@
 		},
 		components:{
 		 vHeader
+		},
+		created(){
+			this.user_id = this.$route.user_id
 		},
 		methods:{
 			ctab(index){
@@ -242,34 +251,34 @@
         		padding: 0 0.5rem;
         		display: flex;
         		justify-content: space-around;
-        		padding: 0.5rem 0;
-        		height:5.6rem;
+        		padding: 0.5rem 0.8rem;
+        		height:4.6rem;
         		div{
         			display: flex;
         			flex-direction: column;
-        			width: 5rem;
+        			width: 4.6rem;
         			justify-content: space-around;
         			align-items: center;
-        			font-size: 0.7rem;
+        			font-size: 0.6rem;
         			img{
-        				height: 3rem;
-        				width: 3rem;
+        				height: 2rem;
+        				width: 2rem;
         			}
         		}
         	}
         	.topay{
         		margin: 0.5rem 0;
         		height: 1.8rem;
-        		font-size: 0.88rem;
+        		font-size: 0.8rem;
         		color: white;
         		display: flex;
         		justify-content: center;
         		align-items: center;
         		div{
         			width: 12rem;
-        			height: 1.8rem;
+        			height: 1.6rem;
         			text-align: center;
-        			line-height: 1.8rem;
+        			line-height: 1.6rem;
         			border-radius: .9rem;
         			color: white;
         			background: $color;

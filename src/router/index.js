@@ -14,6 +14,7 @@ import Read from "@/components/book/read"
 import Login from "@/components/login/login"
 import Bookshelf from "@/components/bookshelf/bookshelf"
 import Record from "@/components/record/record"
+import Discuss from "@/components/discuss/discuss"
 Vue.use(Router)
 let router = new Router({
 	  mode:"history",
@@ -21,13 +22,17 @@ let router = new Router({
 	    {
 	      path: '/',
 	      name: 'Index',
-	      component: Index
+	      component: Index,
+	      meta:{keepAlive:true}
 	    },
 	    {
 	    	path:"/detail",
 	    	name :"detail",
 	    	component:Detail,
 	    	props:true,
+	    	meta:{
+	    		keepAlive:false
+	    	}
 	    },
 	    {
 	    	path:"/search",
@@ -97,6 +102,13 @@ let router = new Router({
 	    	path:"/record",
 	    	name :"record",
 	    	component:Record,
+	    	props:true,
+	    	
+	    },
+	    {
+	    	path:"/discuss",
+	    	name :"discuss",
+	    	component:Discuss,
 	    	props:true,
 	    	
 	    }

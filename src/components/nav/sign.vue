@@ -36,11 +36,13 @@
 	    </div>
 	    <!-- 模态框 -->
 	    <div class="mask" v-if="mflag"></div>
-	    <div class="sign-hint" v-if="mflag">
-	    	<h1>恭喜你，签到成功！</h1>
-	    	<h2>获得<b class="bookcoin">{{rewards}}</b>个书券</h2>
-	    	<p><a class="closed" @click="confirm()">我知道啦</a></p>
-	    </div>
+	    <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut ">
+		    <div class="sign-hint" v-if="mflag">
+		    	<h1>恭喜你，签到成功！</h1>
+		    	<h2>获得<b class="bookcoin">{{rewards}}</b>个书券</h2>
+		    	<p><a class="closed" @click="confirm()">我知道啦</a></p>
+		    </div>
+	    </transition>
 	</div>
 </template>
 
