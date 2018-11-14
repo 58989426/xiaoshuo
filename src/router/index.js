@@ -51,6 +51,7 @@ let router = new Router({
 	    	name :"rank",
 	    	component:Rank,
 	    	props:true,
+	    	meta:{keepAlive:true}
 	    },
 	    {
 	    	path:"/sign",

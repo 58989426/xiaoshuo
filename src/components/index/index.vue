@@ -66,8 +66,8 @@
 			<Tiao />
 				<div class="top">
 					<div class="title">{{item.class_name}}</div>
-					<router-link to="/">
-						<div class="more">
+					<router-link to="/classify">
+						<div class="more" >
 							<span>更多</span>
 							<i class="iconfont icon-right"></i>
 						</div>
@@ -87,8 +87,8 @@
 				          	<i class="iconfont icon-ren"></i><span class="at">{{i.author_name}}</span>
 				          </div>
 			              <div class="right2">
-			              	<div>{{i.cate_name}}</div>
-			              	<div>{{i.status==1?"已完结":"连载中"}}</div>
+			              	<div class="kkk">{{i.cate_name}}</div>
+			              	<div class="kkk">{{i.status==1?"已完结":"连载中"}}</div>
 			              </div>
 			          </div>
 			        </div>
@@ -100,7 +100,7 @@
 			
 			<div class="two" v-if="item.type==3">
 				<div class="content">
-				    <router-link  :to="{name:'detail',query:{book_id:item.book_id}}" v-for="(i,index) in item.books" :key="index">
+				    <router-link  :to="{name:'detail',query:{book_id:i.book_id}}" v-for="(i,index) in item.books" :key="index">
 				    	<div class='list' >
 					      <div class='box1' >
 					        <img :src="i.cover" class='simg'></img>
@@ -215,6 +215,7 @@ export default {
     a{
     	text-decoration: none;
     	color: black;
+
     } 
 #index{
     /*头部*/
@@ -407,33 +408,30 @@ export default {
 			.author{
 			  font-size: 0.56rem;
 			  color: gray;
-			  height: rf(70px);
-			  line-height: rf(40px);
 			  display: flex;
 			  justify-content: space-between;
 			  .left{
-			  	padding-top:0.1rem;
+			  	padding-top:0.2rem;
 			  	i{
 			  		font-size: 0.6rem;
 			  	}
 			  }
 			  .right2{
-				  height: rf(70px);
-				  font-size: rf(20px);
 				  display: flex;
 				  justify-content: space-around;
 				  width: 6rem;
-				  padding-top:0.2rem;
-				  div{
-				  border-radius: 0.1rem;
-				  height: rf(30px);
-				  text-align: center;
-				  line-height: rf(20px);
-				  padding: 0.05rem;
+				  padding: 0.25rem 0rem 0 1rem;
+				  .kkk{
+				  	display: flex;
+				  	align-items: center;
+					  border-radius: 0.1rem;
+					  height: 0.72rem;
+					  text-align: center;
+					  padding: 0.08rem;
+					  font-size: 0.48rem;
 				  }
 				  div:nth-child(1){
 				  	color: #ffad33;
-		  
 				  	border:  1px solid #ffad33;
 				  }
 				  div:nth-child(2){

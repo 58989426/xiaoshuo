@@ -82,26 +82,6 @@
 				        <p class="pl">她跻身清流，被名士推崇，成为一代领袖；</p>
 				    </div>
 				</li>
-				<!--<li class="list">
-				    <div class="pic">
-				        <img class="img" src="//shp.qpic.cn/readnovel/0/1/100" alt="小阅书友15175016932195538头像">
-				    </div>
-				    <div class="box">
-				        <div class="name">小阅书友15175016932195538</div>
-				        <time class="time">10-18 22:05</time>
-				        <p class="pl">她跻身清流，被名士推崇，成为一代领袖；</p>
-				    </div>
-				</li>
-				<li class="list">
-				    <div class="pic">
-				        <img class="img" src="//shp.qpic.cn/readnovel/0/1/100" alt="小阅书友15175016932195538头像">
-				    </div>
-				    <div class="box">
-				        <div class="name">小阅书友15175016932195538</div>
-				        <time class="time">10-18 22:05</time>
-				        <p class="pl">她跻身清流，被名士推崇，成为一代领袖；</p>
-				    </div>
-				</li>-->
 			</ul>
 		</div>
 		<Tiao/>
@@ -134,10 +114,11 @@
 				commentlist:[]
 			}
 		},
+		
 		created(){
 			this.navflag = false
 			this.book_id = this.$route.query.book_id
-			console.log(this.book_id)
+			console.log(this.$route.query.book_id)
 			this.getData()
 		},
 		beforeMount(){

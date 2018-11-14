@@ -2,7 +2,7 @@
 	<div id="discuss">
 		<v-header><slot>评论</slot></v-header>
         <div class="discuss_container">
- 			<textarea name="" rows="" cols="" v-model="content" placeholder="文明看书，理性发言" class="content">
+ 			<textarea name="" rows="" cols="" v-model="content" maxlength="200" placeholder="文明看书，理性发言" class="content">
  				
  			</textarea>
  			<p>还能输入<span>{{words}}</span>个字</p>

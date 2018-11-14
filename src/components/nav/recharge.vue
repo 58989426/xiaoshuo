@@ -74,13 +74,14 @@
         	
         	<!--充值方式-->
         	<div class="payway">
-        		<div>
-        			<img src="@/assets/images/ali.png"/>
-        			<span>支付宝</span>
-        		</div>
-        		<div>
-        			<img src="@/assets/images/wx.png"/>
-        			<span>微信</span>
+        		<div v-for="(item,index) in payway" :key="index" @click="choose(index)">
+        			<div id="current" v-if="index == paynum">
+        				<div class="box">
+        					<i class="iconfont icon-queren"></i>
+        				</div>
+        			</div>
+        			<img :src="item.pic"/>
+        			<span>{{item.ti}}</span>
         		</div>
         	</div>
         	
@@ -95,7 +96,7 @@
 				<h4>温馨提示</h4>
 	            <p>1、书币充值比例 1元=100书币</p>
 	            <p>2、充值后书币到账可能有延时，如遇超过10分钟未到账，或遇到其他充值问题，请与客服联系。</p>
-	            <p>3、	书币属于虚拟产品，购买即默认用户同意<a>《用户协议》</a>。</p>	
+	            <p>3、书币属于虚拟产品，购买即默认用户同意<a>《用户协议》</a>。</p>	
 			</div>
 
      	</div>
@@ -104,12 +105,15 @@
 
 <script>
 	import vHeader from "@/components/common/v_header"	
+	import weixin from "@/assets/images/wx.png"
+	import zhb from "@/assets/images/ali.png"
 	export default{
 		name:"rank",
 		data(){
 			return{
 				user_id:"",
 				tabnum:0,
+				paynum:0,
 				tablist:[
 					{
 						ti:"充值书币",
@@ -118,7 +122,18 @@
 					{
 						ti:"加入会员",
 						icon:"iconfont icon-huiyuan"	
-					},]
+					},],
+				payway:[
+					{
+						pic:weixin,
+						ti : '微信'
+					},
+					{
+						pic:zhb,
+						ti: "支付宝"
+					}
+					
+				]
 			}
 		},
 		components:{
@@ -130,6 +145,9 @@
 		methods:{
 			ctab(index){
 				this.tabnum = index
+			},
+			choose(index){
+				this.paynum = index
 			}
 		}
 	}
@@ -211,6 +229,7 @@
         			justify-content: space-between;
         			text-align: center;
         			position: relative;
+        			
         			.hot{
         				font-size: 0.5rem;
         				position: absolute;
@@ -257,9 +276,41 @@
         			display: flex;
         			flex-direction: column;
         			width: 4.6rem;
+        			position: relative;
         			justify-content: space-around;
         			align-items: center;
         			font-size: 0.6rem;
+        			border: 0.04rem  solid #F0F1F2;
+        			overflow: hidden;
+        			#current{
+        				position: absolute;
+        				right: -0.5rem;
+        				top: -0.5rem;
+        				height:1rem;
+        				width:1rem;
+        				transform:rotate(45deg);
+        				border: none;
+        				background:$color;
+        				.box{
+        					border: none;
+        					height: 1rem;
+        					width: 1rem;
+        					position: relative;
+        					i{
+	        					display: block;
+	        					text-align: center;
+	        					line-height: 0.3rem;
+	        					height: 0.3rem;
+	        					width: 0.3rem;
+	        					transform:rotate(-45deg);
+	        					position: absolute;
+	        					top: 0.72rem;
+	        					font-size: 0.3rem;
+	        					color: white;
+        					}
+        				}
+        				
+        			}
         			img{
         				height: 2rem;
         				width: 2rem;

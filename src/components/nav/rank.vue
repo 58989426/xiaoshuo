@@ -3,57 +3,25 @@
         <v-header><slot>排行榜</slot></v-header>
         <div class="container">
 			<ul class="left">
-				<li v-for="(item,index) in ranklist" class="dj" @click="rank(index)"><span :class="cur==index  ?'cur' : ''">{{item}}</span></li>
+				<li v-for="(item,index) in ranknav" class="dj" @click="initload(index,item.type)"><span :class="cur==index  ?'cur' : ''">{{item.tit}}</span></li>
 			</ul>
 			<div class="right">
-				<dl class="list">
+				<dl class="list" v-for="(item,index) in ranklists" :key="index" @click="todetail(item.book_id)">
 		        	<dt>
-		        		<img src="@/assets/images/test.jpg"/>
+		        		<img :src="item.path"/>
 		        	</dt>
 		        	<dd>
-		        		<div class="name">最美的时光</div>
-		        		<div class="rank_intro">重生七零：田妻影视非常狠嚣</div>
+		        		<div class="name">{{item.book_name}}</div>
+		        		<div class="rank_intro">{{item.intro}}</div>
 		        		<div class="box">
 		        			<div class="left2">
 		        				<i class="iconfont icon-ren"></i>
-		        				<span class="name">烧浪尖</span>
+		        				<span class="name">{{item.author_name}}</span>
 		        			</div>
-		        			<div class="right2">现代都市</div>
+		        			<div class="right2">{{item.cate_name}}</div>
 		        		</div>
 		        	</dd>
-	        	</dl>
-	        	<dl class="list">
-		        	<dt>
-		        		<img src="@/assets/images/test.jpg"/>
-		        	</dt>
-		        	<dd>
-		        		<div class="name">最美的时光</div>
-		        		<div class="rank_intro">重生七零：田妻影视非常狠嚣的很哦哦</div>
-		        		<div class="box">
-		        			<div class="left2">
-		        				<i class="iconfont icon-ren"></i>
-		        				<span class="name">烧浪尖</span>
-		        			</div>
-		        			<div class="right2">现代都市</div>
-		        		</div>
-		        	</dd>
-	        	</dl>
-	        	<dl class="list">
-		        	<dt>
-		        		<img src="@/assets/images/test.jpg"/>
-		        	</dt>
-		        	<dd>
-		        		<div class="name">最美的时光</div>
-		        		<div class="rank_intro">重生七零：田妻影视非常狠嚣</div>
-		        		<div class="box">
-		        			<div class="left2">
-		        				<i class="iconfont icon-ren"></i>
-		        				<span class="name">烧浪尖</span>
-		        			</div>
-		        			<div class="right2">现代都市</div>
-		        		</div>
-		        	</dd>
-	        	</dl>
+	            </dl>
 			</div>
         </div>
 	</div>
@@ -65,19 +33,55 @@
 		name:"rank",
 		data(){
 			return{
-				ranklist:["点击榜","人气榜","订阅榜","完本榜"],
-				cur:0
+				ranknav:[
+				{
+					tit:"点击榜",
+					type : 4
+				},
+				{
+					tit:"人气榜",
+					type : 5
+				},
+				{
+					tit:"订阅榜",
+					type : 6
+				},
+				{
+					tit:"完本榜",
+					type : 8
+				}
+				],
+				cur:0,
+				ranklists:[]
 			}
 		},
 		components:{
 		 vHeader
 		},
+		created(){
+			this.initload(0,this.ranknav[0].type)
+		},
 		methods:{
-			change(){
-				console.log("dddd")
+			todetail(book_id){
+				this.$router.push({name:"detail",query:{book_id}})
 			},
-			rank(num){
-				this.cur = num
+			initload(index,type){
+				this.cur = index
+			    this.$http({
+		          method:'get',
+		          url:'/ky/App/Book/Book/rank?type='+type,
+		          data:{}
+		    	 	}).then(res=>{
+		    	 		console.log(res)
+			          if(res.data.code == 200){
+			          	console.log(res.data.data)
+			          	this.ranklists = res.data.data
+			          }else{
+			          	
+			          }
+			        }).catch(err=>{
+			          console.log(err)
+			        })				
 			},
 
 		}
@@ -159,6 +163,7 @@
 							align-items: center;
 							justify-content: space-between;
 							.left2{
+								
 								.name{
 									font-size: 0.52rem;
 									font-weight: normal;

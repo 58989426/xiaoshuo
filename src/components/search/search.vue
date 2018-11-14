@@ -14,7 +14,7 @@
 				</button>
     		</div>
         </div>
-        <div id="hot_sea" v-if='flag'>
+        <div id="hot_sea" v-if='history_flag'>
         	<h3>大家都在搜 :</h3>
         	<div class="sea_book">
         		<span>最强刀皇</span>
@@ -26,27 +26,28 @@
         		<span>最强刀皇</span>
         	</div>
         </div>
-        <div class="sea_list" v-if="!flag">
-        	<router-link to="/detail">
+        <div class="sea_list" v-if="list_flag">
+        	<router-link :to="{name:'detail',query:{book_id:item.book_id}}" v-for="(item,index) in sea_lists" :key="index">
 				<div class="box" >
-			        <img class='pimg' src='@/assets/images/test.jpg' />
+			        <img class='pimg' :src='item.cover' />
 			        <div class='right'>
-			            <div class='name'>  山里人家</div>
-			            <div class='intro'>
-			            　　顾水秀穿越到一个贫穷的山旮沓里，阴差阳错嫁给了猎户董成虎，夫妻相濡以沫，把日子过成诗，从家徒四壁，到有房有田有山。从毫无权势的底层百姓到隐世世族。两人一步一个脚印，创造属于自己的奇迹。
-			            </div>
+			            <div class='name'>{{item.short_name}}</div>
+			            <div class='intro'>{{item.intro}}</div>
 			            <div class='author'>
 					        <div class="left">
-					        	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
+					        	<i class="iconfont icon-ren"></i><span class="at">{{item.author_name}}</span>
 					        </div>
 				            <div class="right2">
-				            	<div>玄幻言情</div>
-				             	<div>连载中</div>
+				            	<div>{{item.cate}}</div>
+				             	<div>{{item.status}}</div>
 				              </div>
 			            </div>
 			        </div>
 				</div>
 				  </router-link>
+        </div>
+        <div class="result_null" v-if="empty_flag">
+        	搜索结果为空！！！
         </div>
 	</div>
 
@@ -58,8 +59,11 @@
 		name:"sea",
 		data(){
 			return{
-				flag:true,
-				sea_txt:""
+				history_flag:true,
+				list_flag:false,
+				empty_flag:false,
+				sea_txt:"",
+				sea_lists : []
 			}
 		},
 		created:function(){
@@ -71,7 +75,30 @@
 		methods:{
 			search(){
 				console.log(this.sea_txt)
-				this.flag = false
+				if (this.sea_txt !== "") {
+				    this.$http({
+			          method:'get',
+			          url:'/ky/App/Book/Book/search?search='+this.sea_txt,
+			          data:{}
+				    }).then(res=>{
+				    	console.log(res.data.data)
+					    	if(res.data.data.length !== 0){
+					    		this.history_flag = false
+								this.list_flag = true
+								this.empty_flag = false
+								this.sea_lists = res.data.data
+					    	}else{
+					    		console.log("搜索结果为空")
+					    		this.history_flag = false
+					    		this.empty_flag = true
+					    	}
+				        }).catch(err=>{
+				          console.log(err)
+				        })					
+				} else{
+					console.log("搜索词为空")
+				}
+
 			}
 		}
 	}
@@ -158,19 +185,17 @@
 					outline: 0;
 					background: none;
 					border: none;
-					
 					i{
 						display: flex;
 						height: 1.5rem;
 						width: 1.5rem;
 						font-size: 0.96rem;
-						color:#808080;
+						color:$color;
 						align-items: center;
 						justify-content: center;
 					}
 				}        		
         	}
-
         }
         #hot_sea{
         	min-height: 3rem;
@@ -202,6 +227,7 @@
         	}
         }
         .sea_list{
+        	padding: 0 0.1rem;
         	a{
 	        	.box{
 					height: rf(240px);
@@ -280,6 +306,15 @@
 					}
 				}
 	        }
+        }
+        .result_null{
+        	height: 3rem; 
+        	width: 100%; 
+        	line-height: 3rem;
+        	text-align: center;
+        	font-size: 0.72rem;
+        	color: $color;
+        	font-style: italic;
         }
     }   
 </style>

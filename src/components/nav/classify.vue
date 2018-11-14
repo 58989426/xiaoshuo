@@ -58,8 +58,8 @@
 				          	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
 				          </div>
 			              <div class="right2">
-			              	<div>玄幻言情</div>
-			              	<div>连载中</div>
+			              	<div class="kkk">玄幻言情</div>
+			              	<div class="kkk">连载中</div>
 			              </div>
 			          </div>
 			        </div>
@@ -76,8 +76,8 @@
 				          	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
 				          </div>
 			              <div class="right2">
-			              	<div>玄幻言情</div>
-			              	<div>连载中</div>
+			              	<div class="kkk">玄幻言情</div>
+			              	<div class="kkk">连载中</div>
 			              </div>
 			          </div>
 			        </div>
@@ -94,8 +94,8 @@
 				          	<i class="iconfont icon-ren"></i><span class="at">前叉</span>
 				          </div>
 			              <div class="right2">
-			              	<div>玄幻言情</div>
-			              	<div>连载中</div>
+			              	<div class="kkk">玄幻言情</div>
+			              	<div class="kkk">连载中</div>
 			              </div>
 			          </div>
 			        </div>
@@ -212,41 +212,39 @@
 				   font-weight: 700;
 				}
 				.author{
-				   font-size: rf(30px);
-				   color: #999;
-				   height: rf(70px);
-				   line-height: rf(40px);
-				   display: flex;
-				   justify-content: space-between;
-				    .left{
-				  	padding-top:0.1rem;
-				  		i{
-				  			font-size: 0.6rem;
-				  		}
+				  font-size: 0.56rem;
+				  color: gray;
+				  display: flex;
+				  justify-content: space-between;
+				  .left{
+				  	padding-top:0.2rem;
+				  	i{
+				  		font-size: 0.6rem;
+				  	}
 				  }
 				  .right2{
-					  height: rf(70px);
-					  font-size: rf(20px);
 					  display: flex;
 					  justify-content: space-around;
 					  width: 6rem;
-					  padding-top:0.2rem;
-					   div{
+					  padding: 0.25rem 0rem 0 1rem;
+					  .kkk{
+					  	display: flex;
+					  	align-items: center;
 						  border-radius: 0.1rem;
-						  height: rf(30px);
+						  height: 0.72rem;
 						  text-align: center;
-						  line-height: rf(20px);
-						  padding: 0.05rem;
-					     }
-					   div:nth-child(1){
+						  padding: 0.08rem;
+						  font-size: 0.48rem;
+					  }
+					  div:nth-child(1){
 					  	color: #ffad33;
 					  	border:  1px solid #ffad33;
-					     }
-					   div:nth-child(2){
+					  }
+					  div:nth-child(2){
 					    color: #5993f0;
 					   	border:  1px solid #5993f0;
-					    }
-					}
+					  }
+					  }
 				}
 					.intro{
 					  text-indent: 0;
