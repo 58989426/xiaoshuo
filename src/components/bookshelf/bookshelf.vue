@@ -93,7 +93,7 @@
 		 	vHeader
 		},
 		created(){
-			console.log(this.$route.query.user_id)
+			console.log(this.$route.params.user_id)
 		},
 		methods:{
 			change(index){

@@ -163,8 +163,16 @@
 							align-items: center;
 							justify-content: space-between;
 							.left2{
-								
+								i{
+									height: 1.33rem;
+									display: inline-block;
+									line-height: 1rem;
+									width: 0.6rem;
+								}
 								.name{
+									display: inline-block;
+									height: 1.33rem;
+									line-height: 1rem;
 									font-size: 0.52rem;
 									font-weight: normal;
 								}

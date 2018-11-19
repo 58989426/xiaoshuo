@@ -50,7 +50,7 @@
 		},
 		methods:{
 			gopage(path){
-				if(path == "/" || "rank" || "recharge"){
+				if(path == "/" || "rank" || "classify"){
 					this.$router.push({path})
 				}else{
 					if (true) {

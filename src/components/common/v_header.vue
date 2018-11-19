@@ -22,6 +22,9 @@
 		components:{
 		    Mnav
 		  },
+		created(){
+			this.flag = false
+		},
 		data(){
 			return{
 				flag : false

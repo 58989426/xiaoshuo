@@ -6,11 +6,11 @@
         	<!--用户名头像-->
         	<div class="mine_top">
         		<div class="top_left">
-        			<span class="name">APPMkhyYSKL</span>
-        			<span class="id">ID:3802056</span>
+        			<span class="name">{{userinfo.nicker}}</span>
+        			<span class="id">ID:{{userinfo.uid}}</span>
         		</div>
         		<div class="top_img">
-        			<img src="@/assets/images/tx.jpg"/>
+        			<img :src="userinfo.headerimg"/>
         		</div>
         	</div>
         	<!--书币书券-->
@@ -19,7 +19,7 @@
 					<i class="iconfont icon-weibiaoti5"></i>
 					<div class="right">
 						<span class="account">我的账户</span>
-						<div class="coin"><span>1890 </span>书币/<span>1584 </span>书券</div>
+						<div class="coin"><span>{{userinfo.amount}} </span>书币 / <span>{{userinfo.number}} </span>书券</div>
 					</div>
 				</div>
 				<div class="mine_btn">
@@ -32,7 +32,7 @@
 					<i class="iconfont icon-huiyuan"></i>
 					<div class="vip_right">
 						<span class="name">会员</span>
-						<div class="state">未开通</div>
+						<div class="state">{{userinfo.is_vip == 0 ? '未开通' : userinfo.reader_packtime}}</div>
 					</div>
 				</div>
 				<div class="mine_vip_btn">
@@ -44,7 +44,7 @@
 				<li>
 					<div>
 						<i class="iconfont icon-shouji"></i>
-						<span>已绑定手机号136****3233</span>
+						<span>已绑定手机号{{userinfo.tel}}</span>
 					</div>
 					<i class="iconfont icon-zuo1"></i>
 				</li>
@@ -79,9 +79,7 @@
 			</ul>
 			<!--登录/退出-->
 			<div class="quit">
-				<router-link to="/login">
-					<div>退出登录</div>
-				</router-link>
+				<div @click="quit()">退出登录</div>
 			</div>
         </div>
         <!--<Bottom/>-->
@@ -95,15 +93,21 @@
 		name:"mine",
 		data(){
 			return{
-				
+				userinfo:{}
 			}
 		},
 		components:{
 			Bottom,vHeader
 		},
+		created(){
+			this.getuserinfo()
+		},
 		methods:{
 			goshelf(){
-				
+				this.$router.push({
+					name: "bookshelf",
+					params :{user_id : 3816113}
+				})
 			},
 			gorecord(type,txt){
 				localStorage.setItem("type",type)
@@ -113,9 +117,28 @@
 			       
 			    });
 			},
+			getuserinfo(){
+			    this.$http({
+		          	method:'get',
+		          	url:'/ky/App/Book/User/profile?id='+3816113,
+		         	 data:{}
+			    }).then(res=>{
+			    	console.log(res.data)
+			    	if(res.code = 200){
+			    		this.userinfo = res.data.data
+			    	}
+			          
+			        }).catch(err=>{
+			          console.log(err)
+			        })				
+			},
+			quit(){
+				console.log("退出登录")
+			},
 			clear(){
-				
-			}
+				console.log("清理缓存")
+				localStorage.removeItem('userinfo')
+			},
 
 		}
 	}
@@ -281,10 +304,11 @@
 				}
 			}
 			.quit{
-				height: 2.7rem;
+				height: 3.7rem;
 				padding: .5rem .5rem;
 				display: flex;
 				justify-content: center;
+				align-items: center;
 				div{
 					height: 1.7rem;
 					width: 5rem;

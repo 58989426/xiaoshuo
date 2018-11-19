@@ -1,52 +1,66 @@
 <template>
 	<div id="read" :style="readsetting">
-		<header class="header"  v-if="readset_flag">
-            <router-link to="/detail">
-               <i class="iconfont icon-zuo"></i>
-            </router-link>
-     	</header>
-		<div class="read_mask" @click="closeset" v-if="readset_flag" @touchmove.prevent></div>
-		<h3 class="chapter_name">第一章 我们又见面了</h3>
-		<div class="read_content" v-html="bookcontent" @click="readset()">
-			{{bookcontent}}
-		</div>
-		<div class="prev_next">
-			<div class="prev">上一章</div>
-			<div class="catelog" @click="toChapterMenu()">目录</div>
-			<div class="next">下一章</div>
-		</div>
-		
-        <div id="set-all" v-if="fontset_flag" >
-            <div class="fs">
-              <div class="minus" @click="minus(readsetting.fontSize)"><i class="iconfont icon-zitijian"></i></div>
-              <div class="add" @click="add(readsetting.fontSize)"><i class="iconfont icon-zitijia"></i></div>
-            </div>
-            <div class="bg">
-              <div v-for=" (item,index) in bgarr" :class="bgnum==index?'bgcur ':''" @click="changebg(index,item)" :style="'background:'+item" >
-              	<i :class="bgnum==index?'iconfont icon-queren ':''"></i>
-              </div>
-            </div>
-        </div>
-        
-		<footer class="footer"  v-if="readset_flag" >
-		    <div class="item"  @click="toChapterMenu()" >
-		        <i class="iconfont icon-mulu1"></i>
-		        <div class="label">目录</div>
-		    </div>
-		    <div class="item"  @click="fontset()">
-		        <i class="iconfont icon-shezhi" ></i>
-		        <div class="label">设置</div>
-		    </div>
-		    <div class="item"  @click="setNight()" >
-		        <i class="iconfont" :class="!msflag?'icon-yejianmoshi':'icon-rijianmoshi'"></i>
-		        <div class="label">{{!msflag?'夜':'日'}}间</div>
-		    </div>
-		    <div class="item" @click="addstore()" >
-		        <i class="iconfont icon-shoucang" ></i>
-		        <div class="label" >收藏</div>
-		    </div>
-        </footer>
+		<div class="read_cc" v-if="true">
+			<header class="header"  v-if="readset_flag">
+	            <div @click="$router.go(-1)">
+	               <i class="iconfont icon-zuo"></i>
+	            </div>
+	     	</header>
+			<div class="read_mask" @click="closeset" v-if="readset_flag" @touchmove.prevent></div>
+			<h3 class="chapter_name">第一章 我们又见面了</h3>
+			<div class="read_content" v-html="bookcontent" @click="readset()">
+				{{bookcontent}}
+			</div>
+			<div class="prev_next">
+				<div class="prev">上一章</div>
+				<div class="catelog" @click="toChapterMenu()">目录</div>
+				<div class="next">下一章</div>
+			</div>
+			
+	        <div id="set-all" v-if="fontset_flag" >
+	            <div class="fs">
+	              <div class="minus" @click="minus(readsetting.fontSize)"><i class="iconfont icon-zitijian"></i></div>
+	              <div class="add" @click="add(readsetting.fontSize)"><i class="iconfont icon-zitijia"></i></div>
+	            </div>
+	            <div class="bg">
+	              <div v-for=" (item,index) in bgarr" :class="bgnum==index?'bgcur ':''" @click="changebg(index,item)" :style="'background:'+item" >
+	              	<i :class="bgnum==index?'iconfont icon-queren ':''"></i>
+	              </div>
+	            </div>
+	        </div>
+	        
+			<footer class="footer"  v-if="readset_flag" >
+			    <div class="item"  @click="toChapterMenu()" >
+			        <i class="iconfont icon-mulu1"></i>
+			        <div class="label">目录</div>
+			    </div>
+			    <div class="item"  @click="fontset()">
+			        <i class="iconfont icon-shezhi" ></i>
+			        <div class="label">设置</div>
+			    </div>
+			    <div class="item"  @click="setNight()" >
+			        <i class="iconfont" :class="!msflag?'icon-yejianmoshi':'icon-rijianmoshi'"></i>
+			        <div class="label">{{!msflag?'夜':'日'}}间</div>
+			    </div>
+			    <div class="item" @click="addstore()" >
+			        <i class="iconfont icon-shoucang" ></i>
+			        <div class="label" >收藏</div>
+			    </div>
+	        </footer>
+	    </div>
+	    <div class="read_pay" v-else @touchmove.prevent>
+		 	<div class="box">
+		 		<div class="title"> 本章节需要购买，才能继续阅读</div>
+		 		<div class='blance'>账户余额： <span>8522</span> 书币 <span >999</span> 书券</div>
+		        <div class='words'>章节字数：5222</div>
+		        <div class='price'>本章价格：<span >22</span> 书币</div>
+		        <div class='discount'>折扣优惠：<span>开通VIP即可免费阅读全部书籍</span></div>
+		        <div class='dy'><i :class="dyflag?'iconfont icon-queren':'ii'"></i><div @click="subscription()">开启自动订阅</div></div>
+		        <div class="continue"><div>继续阅读</div></div>
+		 	</div>
+	    </div>
 	</div>
+	
 </template>
 `	
 <script>
@@ -64,7 +78,8 @@
 				bgarr:["#f7e3c2","#cad9e8","#d1edd1","#FCEFFF"],
 				bgnum:0,
 				fontset_flag:false,
-				msflag:null //默认日间
+				msflag:null,//默认日间
+				dyflag:true
 			}
 		},
 		created:function(){
@@ -144,6 +159,9 @@
 			changebg(index,item){
 				this.bgnum = index
 				this.readsetting.background = item
+			},
+			subscription(){
+				this.dyflag = !this.dyflag
 			}
 		}
 	}
@@ -166,163 +184,245 @@
     	justify-content: space-between;
     	padding-top: 0.4rem 0.8rem 0 0.8rem;
     	min-height: 30rem;
-    	.read_mask{
-		    position: fixed;
-		    width: 100%;
-		    height: 100%;
-		    top: 0;
-		    left: 0;
-		    background: rgba(0, 0, 0, 0.8);
-		    opacity: 0.1;
-		    z-index: 99;
-		    transition: opacity .3s,transform .3s;
-    	}
-    	h3{
-    		height: 2rem;
-    		text-align: center;
-    		font-size: 0.66rem;
-    		line-height: 2rem;
-    	}
-    	.read_content{
-    		padding: 0 0.8rem ;
-    		height: 100%;
-    		padding-top: 0.5rem;
-    		span{
-    			display: block;
-    			text-indent: 2em;
-    		}
-    	}
-    	.prev_next{
-    		height: 2.6rem;
+    	.read_pay{
+    		height: 30rem;
     		width: 100%;
-    		display: flex;
-    		align-items: center;
-    		justify-content: space-between;
-    		padding: 0 1rem;
-    		div{
-    			height: 1.4rem;
-    			width: 25%;
-    			display: flex;
-    			align-items: center;
-    			justify-content: center;
-    			border: 1px solid #fbab80;
-    			border-radius: 4%;
-    			color: #fbab80;
-    			font-size: 0.6rem;
-    		}
-    		.prev{
-    			width: 30%;
-    		}
-    		.catelog{
-    			margin: 0;
-    		}
-    		.next{
-    			width: 30%;
-    		}
+			.box{
+				width: 100%;
+				position: fixed;
+				top: 5rem;
+				.title{
+					height: 2rem;
+					line-height: 2rem;
+					font-size: 0.78rem;
+					font-weight: 600;
+					text-align: center;
+					padding: 0;
+				}
+				div{
+					padding-left: 1rem;
+					height: 1.2rem;
+					font-size: 0.62rem;
+					line-height: 1.2rem;
+					span{
+						color: $color;
+					}
+				}
+				.dy{
+					height: 2rem;
+					padding: 0.68rem 5rem 0 5rem;
+					text-align: center;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
+					i{
+						display: inline-block;
+						border: 0.04rem solid $color;
+						border-radius: 50%;
+						height: 0.8rem;
+						width: 0.8rem;
+						color: $color;
+						font-size: 0.4rem;
+						text-align: center;
+						line-height: 0.8rem;
+					}
+					.ii{
+						display: inline-block;
+						border: 0.04rem solid $color;
+						border-radius: 50%;
+						height: 0.8rem;
+						width: 0.8rem;
+						color: white;
+						font-size: 0.4rem;
+						text-align: center;
+						line-height: 0.8rem;
+					}
+					div{
+						padding: 0;
+						display: inline-block;
+					}
+				}
+				.continue{
+					height: 2rem;
+					padding: 0;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					div{
+						padding: 0;
+						font-size: 0.72rem;
+						height: 1.8rem;
+						width: 90%;
+						text-align: center;
+						line-height: 1.8rem;
+						background: $color;
+						border-radius: 0.9rem;
+						color: white;
+						letter-spacing : 0.2rem
+					}
+				}
+			}
     	}
-    	.header{
-    		display: flex;
-		    height: 1.8rem;
-		    /*border-bottom: 1px solid #f0f1f2;*/
-			width: 100%;
-		    position:fixed; top:0; 
-		    background-color: rgba(0, 0, 0, 0.9);
-		    z-index:9999;
-		    color: #fff;
-		    padding: 0 0.8rem;
-		    a{
-		    	display: block;
-		    	i{
-		    		height: 1.8rem;
-			    	width: 1.8rem;
+    	.read_cc{
+	    	.read_mask{
+			    position: fixed;
+			    width: 100%;
+			    height: 100%;
+			    top: 0;
+			    left: 0;
+			    background: rgba(0, 0, 0, 0.8);
+			    opacity: 0.1;
+			    z-index: 99;
+			    transition: opacity .3s,transform .3s;
+	    	}
+	    	h3{
+	    		height: 2rem;
+	    		text-align: center;
+	    		font-size: 0.66rem;
+	    		line-height: 2rem;
+	    	}
+	    	.read_content{
+	    		padding: 0 0.8rem ;
+	    		height: 100%;
+	    		padding-top: 0.5rem;
+	    		span{
+	    			display: block;
+	    			text-indent: 2em;
+	    		}
+	    	}
+	    	.prev_next{
+	    		height: 2.6rem;
+	    		width: 100%;
+	    		display: flex;
+	    		align-items: center;
+	    		justify-content: space-between;
+	    		padding: 0 1rem;
+	    		div{
+	    			height: 1.4rem;
+	    			width: 25%;
+	    			display: flex;
+	    			align-items: center;
+	    			justify-content: center;
+	    			border: 1px solid #fbab80;
+	    			border-radius: 4%;
+	    			color: #fbab80;
+	    			font-size: 0.6rem;
+	    		}
+	    		.prev{
+	    			width: 30%;
+	    		}
+	    		.catelog{
+	    			margin: 0;
+	    		}
+	    		.next{
+	    			width: 30%;
+	    		}
+	    	}
+	    	.header{
+	    		display: flex;
+			    height: 1.8rem;
+			    /*border-bottom: 1px solid #f0f1f2;*/
+				width: 100%;
+			    position:fixed; top:0; 
+			    background-color: rgba(0, 0, 0, 0.9);
+			    z-index:9999;
+			    color: #fff;
+			    padding: 0 0.8rem;
+			    div{
+			    	display: block;
+			    	i{
+			    		height: 1.8rem;
+				    	width: 1.8rem;
+				    	display: flex;
+				    	align-items: center;
+				    	justify-content: flex-start;
+				    	color: #fff;
+				    	font-size: 0.6rem;
+			    	}
+			    }
+	    	}
+	    	.footer{
+	    		position: fixed;
+	    		bottom: 0;
+				height: 2rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				background-color: rgba(0, 0, 0, 0.9);
+			    color: #fff;
+			    border-bottom: 0;
+			    transition: opacity .15s,transform .15s,visibility .15s;
+			    width: 100%;
+			    z-index:999; 
+			    .item{
+			    	height: 2rem;
+			    	width: 20%;
+			    	padding: 0.15rem 0;
 			    	display: flex;
+			    	flex-direction: column;
 			    	align-items: center;
-			    	justify-content: flex-start;
-			    	color: #fff;
-			    	font-size: 0.6rem;
-		    	}
-		    }
+			    	justify-content: space-around;
+			    	i{
+			    		font-size: 0.55rem;
+			    	}
+			    	.label{
+			    		font-size: 0.5rem;
+			    	}
+			    }
+			}
+	  		#set-all{
+		        height: 5.5rem;
+		        width: 100%;
+		        background: #121212;
+		        z-index: 9999;
+		        position: fixed;
+		        bottom: 2rem;
+		        opacity: .9;
+		        display: flex;
+		        flex-direction: column;
+		        justify-content: space-between;
+		        color: white;
+	            .fs{
+		            height: 2.5rem;
+		            display: flex;
+		            align-items: flex-end;
+		            justify-content: space-around;
+		            div{
+			          
+			          border: 1px solid white;
+	
+			          i{
+			          	display: block;
+			          	height: 1.8rem;
+				        width: 1.8rem;
+				        font-size: 0.8rem;
+				        line-height: 2rem;
+				        text-align: center;
+			          }
+			        }
+	        	}
+	        	.bg{
+		            height: 2.5rem;
+		            display: flex;
+		            align-items: center;
+		            justify-content: space-around;
+		            .bgcur{
+			           border: 1px solid $color;
+			        }
+			        div{
+			          i{
+			          	display: block;
+			          	color: $color;
+			          	font-size: 0.6rem;
+			          	height: 1.6rem;
+			          	width: 2rem;
+			          	text-align: center;
+			          	line-height: 1.6rem;
+			          }
+			        }
+		        }
+	        }    		
     	}
-    	.footer{
-    		position: fixed;
-    		bottom: 0;
-			height: 2rem;
-			display: flex;
-			align-items: center;
-			justify-content: space-around;
-			background-color: rgba(0, 0, 0, 0.9);
-		    color: #fff;
-		    border-bottom: 0;
-		    transition: opacity .15s,transform .15s,visibility .15s;
-		    width: 100%;
-		    z-index:999; 
-		    .item{
-		    	height: 2rem;
-		    	width: 20%;
-		    	padding: 0.15rem 0;
-		    	display: flex;
-		    	flex-direction: column;
-		    	align-items: center;
-		    	justify-content: space-around;
-		    	i{
-		    		font-size: 0.55rem;
-		    	}
-		    	.label{
-		    		font-size: 0.5rem;
-		    	}
-		    }
-		}
-  		#set-all{
-	        height: 5.5rem;
-	        width: 100%;
-	        background: #121212;
-	        z-index: 9999;
-	        position: fixed;
-	        bottom: 2rem;
-	        opacity: .9;
-	        display: flex;
-	        flex-direction: column;
-	        justify-content: space-between;
-	        color: white;
-            .fs{
-	            height: 2.5rem;
-	            display: flex;
-	            align-items: flex-end;
-	            justify-content: space-around;
-	            div{
-		          
-		          border: 1px solid white;
 
-		          i{
-		          	display: block;
-		          	height: 1.8rem;
-			        width: 1.8rem;
-			        font-size: 0.8rem;
-			        line-height: 2rem;
-			        text-align: center;
-		          }
-		        }
-        	}
-        	.bg{
-	            height: 2.5rem;
-	            display: flex;
-	            align-items: center;
-	            justify-content: space-around;
-	            .bgcur{
-		           border: 1px solid $color;
-		        }
-		        div{
-		          i{
-		          	display: block;
-		          	color: $color;
-		          	font-size: 0.6rem;
-		          	height: 1.6rem;
-		          	width: 2rem;
-		          	text-align: center;
-		          	line-height: 1.6rem;
-		          }
-		        }
-	        }
-        }
     }    
 </style>

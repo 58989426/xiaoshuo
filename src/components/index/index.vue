@@ -7,8 +7,8 @@
             <span class="title">小说阅读网</span>
         </div>
         <div class="right">
-            <router-link to="/mine"><i class="iconfont icon-ren"></i></router-link>
-						<router-link to="/bookshelf"><i class="iconfont icon-xiaoshuowanben"></i></router-link>
+            <div @click="gopage('mine')"><i class="iconfont icon-ren"></i></div>
+						<div @click="gopage('bookshelf')"><i class="iconfont icon-xiaoshuowanben"></i></div>
         </div>
      </div>
     <!--轮播图-->
@@ -31,36 +31,26 @@
 			
 			<!--导航-->
 			<div class="nav">
-				<router-link to="/classify">
-					<div class="fl">
-						<i class="iconfont icon-leimupinleifenleileibie"></i>
-						<span>分类</span>
-					</div>
-				</router-link>
-				<router-link to="/rank">
-					<div class="fl">
-						<i class="iconfont icon-paihang"></i>
-						<span>排行榜</span>
-					</div>
-				</router-link>
-				<router-link to="/mine">
-					<div class="fl">
-						<i class="iconfont icon-wode1"></i>
-						<span>我的</span>
-					</div>
-				</router-link>
-				<router-link to="/recharge">
-					<div class="fl">
-						<i class="iconfont icon-chongzhi"></i>
-						<span>充值</span>
-					</div>
-				</router-link>
-				<router-link to="/sign">
-					<div class="fl">
-						<i class="iconfont icon-qiandao"></i>
-						<span>签到</span>
-					</div>
-				</router-link>
+				<div class="fl" @click="gopage('classify')">
+					<i class="iconfont icon-leimupinleifenleileibie"></i>
+					<span>分类</span>
+				</div>
+				<div class="fl" @click="gopage('rank')">
+					<i class="iconfont icon-paihang"></i>
+					<span>排行榜</span>
+				</div>
+				<div class="fl" @click="gopage('mine')">
+					<i class="iconfont icon-wode1"></i>
+					<span>我的</span>
+				</div>
+				<div class="fl" @click="gopage('recharge')">
+					<i class="iconfont icon-chongzhi"></i>
+					<span>充值</span>
+				</div>
+				<div class="fl" @click="gopage('sign')">
+					<i class="iconfont icon-qiandao"></i>
+					<span>签到</span>
+				</div>
 			</div>
 			<div class="type_box" v-for="item in lists">
 			<Tiao />
@@ -158,14 +148,14 @@ export default {
   data(){
     return {
     		bannerlist:[],
-        user_id:123456,
+        //user_id:123456,
         lists:[]
         
     };
   },
   created(){
 			this.getData()
-			localStorage.setItem("user_id",123456)
+//			localStorage.setItem("user_id",123456)
 			
   },
   mounted(){
@@ -194,6 +184,17 @@ export default {
           console.log(err)
         })
 		},
+		gopage(path){
+			if(path == "classify" || "rank"){
+				this.$router.push({path})
+			}else{
+				if (true) {
+					this.$router.push({path,query:{user_id:this.user_id}})
+				} else{
+					this.$router.push({path:'login'})
+				}
+			}
+		},		
 		
   }
 
@@ -253,7 +254,7 @@ export default {
 	       padding-top: rf(21px);
 	       display: flex;
 	       justify-content: space-between;
-	       a{
+	       div{
 	       	display: block;
 	       	height: rf(46px);
 	       	 i{
@@ -313,40 +314,40 @@ export default {
         
     /*导航*/ 
     .nav{
-        	display: flex;
-			    width: 100%;
-			    height: 3rem;
-			    justify-content: space-between;
-			    -webkit-box-pack: justify;
-			    background-color: #fff;
-			    padding: 0 0.5rem;
-			    align-items: center;
-			   a{
-			   	display: block;
-			   	.fl{
-			   		display: flex;
-			   		height: 2rem;
-			   		flex-direction: column;
-			   		justify-content: space-around;
-			   		align-items:space-around;
-			   		i{
-			   			width: 2rem;
-			   			display: flex;
-			   			font-size: 0.76rem;
-			   			color:$color;
-			   			justify-content: center;
-			   			align-items: center;
-			   		}
-			   		span{
-			   			width: 2rem;
-			   			text-align: center;
-			   			display: block;
-			   			font-size: 0.56rem;
-			   			color:black;
-			   		}
-			   	}
-			   }
-        }   
+    	display: flex;
+	    width: 100%;
+	    height: 3rem;
+	    justify-content: space-between;
+	    -webkit-box-pack: justify;
+	    background-color: #fff;
+	    padding: 0 0.5rem;
+	    align-items: center;
+		  /*a{
+		   	display: block;*/
+		   	.fl{
+		   		display: flex;
+		   		height: 2rem;
+		   		flex-direction: column;
+		   		justify-content: space-around;
+		   		align-items:space-around;
+		   		i{
+		   			width: 2rem;
+		   			display: flex;
+		   			font-size: 0.76rem;
+		   			color:$color;
+		   			justify-content: center;
+		   			align-items: center;
+		   		}
+		   		span{
+		   			width: 2rem;
+		   			text-align: center;
+		   			display: block;
+		   			font-size: 0.56rem;
+		   			color:black;
+		   		}
+		   	}
+		   /*}*/
+    }   
   .type_box{
   	.top{
    	padding: 0 0.5rem;
